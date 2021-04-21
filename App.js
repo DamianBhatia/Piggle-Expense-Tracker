@@ -2,60 +2,9 @@ import React from 'react';
 import { Avatar, Icon } from 'react-native-elements';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { COLORS } from './colors.js';
-import { LineChart, PieChart } from 'react-native-chart-kit';
+import { VictoryContainer, VictoryPie } from 'victory-native';
 
 export default function App() {
-
-  const screenWidth = Dimensions.get("window").width;
-
-  const chartConfig = {
-    backgroundGradientFrom: "#1E2923",
-    backgroundGradientFromOpacity: 0,
-    backgroundGradientTo: "#08130D",
-    backgroundGradientToOpacity: 0.5,
-    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-    strokeWidth: 2, // optional, default 3
-    barPercentage: 0.5,
-    useShadowColorFromDataset: false // optional
-  };
-
-  const data = [
-    {
-      name: "Seoul",
-      population: 21500000,
-      color: "rgba(236,179,255, 0.7)",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-    {
-      name: "Toronto",
-      population: 2800000,
-      color: "rgba(153,0,204, 0.7)",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-    {
-      name: "Beijing",
-      population: 527612,
-      color: "rgba(96,0,128, 0.7)",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-    {
-      name: "New York",
-      population: 8538000,
-      color: "rgba(198,28,255, 0.7)",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-    {
-      name: "Moscow",
-      population: 11920000,
-      color: "rgba(217,102,255, 0.7)",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    }
-  ];
 
   return (
     // Top bar with Dashboard and Menu Icon
@@ -106,18 +55,30 @@ export default function App() {
       {/* Pie Chart area with breakdown of spending */}
       <View style={styles.chartView}>
         <Text style={styles.breakdownTitle}>Monthly Summary</Text>
-          <PieChart 
-            data={data}
-            width={screenWidth}
-            height={220}
-            chartConfig={chartConfig}
-            accessor={"population"}
-            backgroundColor={"transparent"}
-            paddingLeft={"15"}
-            center={[80, 10]}
-            hasLegend={false}
-          />
+        <VictoryPie 
+          data={[
+            { x: "Grocery", y: 18 },
+            { x: "Entertainment", y: 17 },
+            { x: "Subscriptions", y: 30 },
+            { x: "Other", y: 20 },
+            { x: "Travel", y: 15 }
+          ]}
+          height={310}
+          colorScale={['#600080', '#9900cc', '#c61cff', '#d966ff', '#ecb3ff']}
+          padAngle={5}
+          innerRadius={70}
+          labels={({ datum }) => `${datum.y}%`}
+          style={{
+            labels: {
+              fontFamily: 'Avenir',
+              fontWeight: '500',
+              fill: COLORS.text
+            }
+          }}
+        />
       </View>
+
+      {/* Legend of chart */}
     </View>
   );
 }
@@ -236,7 +197,8 @@ const styles = StyleSheet.create({
     elevation: 7,
   },
   chartView: {
-  
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   breakdownTitle: {
     fontSize: 20,
