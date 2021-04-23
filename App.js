@@ -1,14 +1,27 @@
 import React from 'react';
-import { Avatar, Icon } from 'react-native-elements';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { Icon, Divider } from 'react-native-elements';
+import { StyleSheet, Text, View, Dimensions, ScrollView } from 'react-native';
 import { COLORS } from './colors.js';
 import { VictoryContainer, VictoryPie } from 'victory-native';
 
 export default function App() {
 
+  const data = [
+      { x: "Grocery", y: 500, color: '#600080' },
+      { x: "Entertainment", y: 4000, color: '#c61cff' },
+      { x: "Subscriptions", y: 70, color: '#9900cc' },
+      { x: "Other", y: 7000, color: '#d966ff' },
+      { x: "Travel", y: 851, color: '#ecb3ff' }
+  ];
+
+  const colorScale = ['#600080', '#9900cc', '#c61cff', '#d966ff', '#ecb3ff'];
+
+  // TODO: calculate from data
+  const totalExpense = 12421;
+
   return (
     // Top bar with Dashboard and Menu Icon
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.topContainer}>
         <Text style={styles.title}>Dashboard</Text>
         <View style={styles.menuWrapper}>
@@ -56,18 +69,12 @@ export default function App() {
       <View style={styles.chartView}>
         <Text style={styles.breakdownTitle}>Monthly Summary</Text>
         <VictoryPie 
-          data={[
-            { x: "Grocery", y: 18 },
-            { x: "Entertainment", y: 17 },
-            { x: "Subscriptions", y: 30 },
-            { x: "Other", y: 20 },
-            { x: "Travel", y: 15 }
-          ]}
+          data={data}
           height={310}
-          colorScale={['#600080', '#9900cc', '#c61cff', '#d966ff', '#ecb3ff']}
+          colorScale={colorScale}
           padAngle={5}
           innerRadius={70}
-          labels={({ datum }) => `${datum.y}%`}
+          labels={({ datum }) => `${((datum.y / totalExpense) * 100).toFixed(1)}%`}
           style={{
             labels: {
               fontFamily: 'Avenir',
@@ -79,7 +86,25 @@ export default function App() {
       </View>
 
       {/* Legend of chart */}
-    </View>
+      <View style={styles.legend}>
+        {
+          data.map(item => (
+            <View>
+              <View key={item.x} style={styles.legendItem}>
+                <View style={styles.legendLeft}>
+                  <View style={{ width: 25, height: 25, borderRadius: 7, backgroundColor: item.color, marginHorizontal: 10}}></View>
+                  <Text style={styles.legendText}>{item.x}</Text>
+                </View>
+                <View style={styles.legendRight}>
+                  <Text style={styles.legendNumbers}>{item.y} CAD</Text>
+                </View>
+              </View>
+              <Divider style={{backgroundColor: COLORS.text}}/>
+            </View>
+          ))
+        }
+      </View>
+    </ScrollView>
   );
 }
 
@@ -206,5 +231,33 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     textAlign: 'center',
     paddingTop: 30,
+  },
+  legend: {
+    marginTop: -20,
+  },
+  legendItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.background,
+    paddingVertical: 10,
+  },
+  legendLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 2
+  },
+  legendRight: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    flex: 1,
+    marginRight: 5
+  },
+  legendText: {
+    fontSize: 16,
+    color: COLORS.text,
+    fontWeight: '500'
+  },
+  legendNumbers: {
+    color: COLORS.text
   },
 });
