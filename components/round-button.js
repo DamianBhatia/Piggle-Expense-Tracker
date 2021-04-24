@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements';
 
 import { COLORS } from '../colors';
 
-const SquareButton = ({ name, type, color, size }) => {
+const RoundButton = ({ name, type, color, size }) => {
 
     // Determine size of button and icon (default size is small)
     let btnSizeStyle, iconSizeStyle;
@@ -17,13 +17,13 @@ const SquareButton = ({ name, type, color, size }) => {
         iconSizeStyle = 50;
     } else { 
         btnSizeStyle = styles.small; 
-        iconSizeStyle = 22;
+        iconSizeStyle = 24;
     }
 
     return (
         <View style={styles.shadowWrapper}>
             <View style={[styles.button, btnSizeStyle]}>
-                <Icon name={name} type={type} color={color} size={iconSizeStyle} />
+              <Icon name={name} type={type} color={color} size={iconSizeStyle} />
             </View>
         </View>
     )
@@ -31,32 +31,21 @@ const SquareButton = ({ name, type, color, size }) => {
 
 const styles = StyleSheet.create({
     small: {
+        borderRadius: 20,
         width: 35,
         height: 35,
     },
     medium: {
+        borderRadius: 30,
         width: 50,
         height: 50,
     },
     large: {
+        borderRadius: 50,
         width: 70,
         height: 70,
     },
-    button: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: COLORS.background,
-        borderRadius: 7,
-        shadowColor: "#000", // Add black shadow in bottom right
-        shadowOffset: {
-            width: 4,
-            height: 4,
-        },
-        shadowOpacity: 0.20,
-        shadowRadius: 3,
-        elevation: 7,
-      },
-      shadowWrapper: { // Add white shadow in top left
+    shadowWrapper: {
         shadowColor: "#FFF",
         shadowOffset: {
             width: -4,
@@ -65,7 +54,21 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3,
         elevation: 7,
+        marginRight: 10,
       },
+    button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: COLORS.background,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 4,
+            height: 4,
+        },
+        shadowOpacity: 0.20,
+        shadowRadius: 3,
+        elevation: 7,
+    },
 })
 
-export default SquareButton;
+export default RoundButton;
