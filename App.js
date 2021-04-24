@@ -5,6 +5,7 @@ import { VictoryContainer, VictoryPie } from 'victory-native';
 
 import { COLORS } from './colors.js';
 import SquareButton from './components/square-button';
+import RoundButton from './components/round-button';
 
 export default function App() {
 
@@ -24,26 +25,23 @@ export default function App() {
   return (
     /* Dashboard Title and Menu Button */
     <ScrollView style={styles.container}>
+
       <View style={styles.topContainer}>
         <Text style={styles.title}>Dashboard</Text>
-        <SquareButton name="menu" type="feather" size="small"/>
+        <SquareButton name="menu" type="feather" color={COLORS.text} size="small" />
       </View>
       
-      {/* Main balance area */}
+      {/* Current Balance */}
       <View style={styles.balanceContainer}>
         <Text style={styles.balanceTitle}>BALANCE</Text>
         <Text style={styles.balanceAmount}>$32,465</Text>
         <Text style={styles.date}>April 2021</Text>
       </View>
 
-      {/* Income and Outcome Icons with Values */}
+      {/* Income and Expense Icons with Values */}
       <View style={styles.iconSection}>
         <View style={styles.section}>
-          <View style={styles.arrowWrapper}>
-            <View style={styles.arrow}>
-              <Icon name="arrow-up-right" type="feather" color={COLORS.income} />
-            </View>
-          </View>
+          <RoundButton name="arrow-up-right" type="feather" color={COLORS.income} size="small" />
           <View style={styles.textSection}>
             <Text style={styles.iconHeader}>INCOME</Text>
             <Text style={styles.cashAmount}>$42,500</Text>
@@ -51,11 +49,7 @@ export default function App() {
         </View>
 
           <View style={styles.section}>
-            <View style={styles.arrowWrapper}>
-              <View style={styles.arrow}>
-                <Icon name="arrow-down-left" type="feather" color={COLORS.expense} />
-              </View>
-            </View>
+            <RoundButton name="arrow-down-left" type="feather" color={COLORS.expense} size="small" />
             <View style={styles.textSection}>
               <Text style={styles.iconHeader}>EXPENSE</Text>
               <Text style={styles.cashAmount}>$12,421</Text>
@@ -165,33 +159,6 @@ const styles = StyleSheet.create({
   textSection: {
     display: 'flex',
     alignItems: 'center',
-  },
-  arrowWrapper: {
-    shadowColor: "#FFF",
-    shadowOffset: {
-    	width: -4,
-    	height: -4,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3,
-    elevation: 7,
-    marginRight: 10,
-  },
-  arrow: {
-    width: 35,
-    height: 35,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: COLORS.background,
-    borderRadius: 20,
-    shadowColor: "#000",
-    shadowOffset: {
-    	width: 4,
-    	height: 4,
-    },
-    shadowOpacity: 0.20,
-    shadowRadius: 3,
-    elevation: 7,
   },
   chartView: {
     alignItems: 'center',
