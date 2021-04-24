@@ -1,8 +1,10 @@
 import React from 'react';
 import { Icon, Divider } from 'react-native-elements';
 import { StyleSheet, Text, View, Dimensions, ScrollView } from 'react-native';
-import { COLORS } from './colors.js';
 import { VictoryContainer, VictoryPie } from 'victory-native';
+
+import { COLORS } from './colors.js';
+import SquareButton from './components/square-button';
 
 export default function App() {
 
@@ -20,15 +22,11 @@ export default function App() {
   const totalExpense = 12421;
 
   return (
-    // Top bar with Dashboard and Menu Icon
+    /* Dashboard Title and Menu Button */
     <ScrollView style={styles.container}>
       <View style={styles.topContainer}>
         <Text style={styles.title}>Dashboard</Text>
-        <View style={styles.menuWrapper}>
-          <View style={styles.menu}>
-            <Icon name="menu" type="feather" color={COLORS.text} />
-          </View>
-        </View>
+        <SquareButton name="menu" type="feather" size="small"/>
       </View>
       
       {/* Main balance area */}
@@ -88,9 +86,9 @@ export default function App() {
       {/* Legend of chart */}
       <View style={styles.legend}>
         {
-          data.map(item => (
-            <View>
-              <View key={item.x} style={styles.legendItem}>
+          data.map((item, key) => (
+            <View key={key}>
+              <View style={styles.legendItem}>
                 <View style={styles.legendLeft}>
                   <View style={{ width: 25, height: 25, borderRadius: 7, backgroundColor: item.color, marginHorizontal: 10}}></View>
                   <Text style={styles.legendText}>{item.x}</Text>
@@ -125,32 +123,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: COLORS.text,
-  },
-  menu: {
-    width: 35,
-    height: 35,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: COLORS.background,
-    borderRadius: 7,
-    shadowColor: "#000",
-    shadowOffset: {
-    	width: 4,
-    	height: 4,
-    },
-    shadowOpacity: 0.20,
-    shadowRadius: 3,
-    elevation: 7,
-  },
-  menuWrapper: {
-    shadowColor: "#FFF",
-    shadowOffset: {
-    	width: -4,
-    	height: -4,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3,
-    elevation: 7,
   },
   balanceContainer: {
     alignItems: 'center',
