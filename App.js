@@ -1,11 +1,11 @@
 import React from 'react';
-import { Icon, Divider } from 'react-native-elements';
-import { StyleSheet, Text, View, Dimensions, ScrollView } from 'react-native';
-import { VictoryContainer, VictoryPie } from 'victory-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { VictoryPie } from 'victory-native';
 
 import { COLORS } from './colors.js';
 import SquareButton from './components/square-button';
 import RoundButton from './components/round-button';
+import Legend from './components/legend';
 
 export default function App() {
 
@@ -78,24 +78,7 @@ export default function App() {
       </View>
 
       {/* Legend of chart */}
-      <View style={styles.legend}>
-        {
-          data.map((item, key) => (
-            <View key={key}>
-              <View style={styles.legendItem}>
-                <View style={styles.legendLeft}>
-                  <View style={{ width: 25, height: 25, borderRadius: 7, backgroundColor: item.color, marginHorizontal: 10}}></View>
-                  <Text style={styles.legendText}>{item.x}</Text>
-                </View>
-                <View style={styles.legendRight}>
-                  <Text style={styles.legendNumbers}>{item.y} CAD</Text>
-                </View>
-              </View>
-              <Divider style={{backgroundColor: COLORS.text}}/>
-            </View>
-          ))
-        }
-      </View>
+      <Legend data={data} />
     </ScrollView>
   );
 }
