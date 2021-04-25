@@ -4,6 +4,7 @@ import { Divider } from 'react-native-elements';
 
 import { COLORS } from '../colors.js';
 
+
 const Legend = ({ data }) => {
     return (
         <View style={styles.legend}>

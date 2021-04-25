@@ -5,6 +5,7 @@ import { Icon } from 'react-native-elements';
 
 import { COLORS } from '../colors';
 
+
 const SquareButton = ({ name, type, color, size, func }) => {
 
     // Determine size of button and icon (default size is small)
