@@ -1,10 +1,11 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import { StyleSheet, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import { COLORS } from '../colors';
 
-const SquareButton = ({ name, type, color, size }) => {
+const SquareButton = ({ name, type, color, size, func }) => {
 
     // Determine size of button and icon (default size is small)
     let btnSizeStyle, iconSizeStyle;
@@ -21,11 +22,11 @@ const SquareButton = ({ name, type, color, size }) => {
     }
 
     return (
-        <View style={styles.shadowWrapper}>
+        <TouchableOpacity style={styles.shadowWrapper} onPress={func}>
             <View style={[styles.button, btnSizeStyle]}>
                 <Icon name={name} type={type} color={color} size={iconSizeStyle} />
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
