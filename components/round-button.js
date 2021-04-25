@@ -4,6 +4,7 @@ import { Icon } from 'react-native-elements';
 
 import { COLORS } from '../colors';
 
+
 const RoundButton = ({ name, type, color, size }) => {
 
     // Determine size of button and icon (default size is small)

@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { VictoryPie } from 'victory-native';
 
 import { COLORS } from '../colors.js';
-import SquareButton from '../components/square-button';
 import RoundButton from '../components/round-button';
 import Legend from '../components/legend';
-import { Button } from 'react-native';
+import Header from '../components/header';
+
 
 const Dashboard = ({ navigation }) => {
+
+  // state of Header to add shadow when scrolling
+  const [shadow, setShadow] = useState(false);
 
   const data = [
       { x: "Grocery", y: 500, color: '#600080' },
@@ -24,13 +27,13 @@ const Dashboard = ({ navigation }) => {
   const totalExpense = 12421;
 
   return (
-    /* Dashboard Title and Menu Button */
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} 
+                stickyHeaderIndices={[0]} 
+                showsVerticalScrollIndicator={false}
+                onScroll={event => event.nativeEvent.contentOffset.y >= 20 ? setShadow(true) : setShadow(false)}>
 
-    <View style={styles.topContainer}>
-        <Text style={styles.title}>Dashboard</Text>
-        <SquareButton name="menu" type="feather" color={COLORS.text} size="small" func={navigation.openDrawer} />
-    </View>
+    {/* Dashboard Title and Menu Button */}
+    <Header title="Dashboard" navigation={navigation} status={shadow}/>
     
     {/* Current Balance */}
     <View style={styles.balanceContainer}>
@@ -90,18 +93,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.background,
-  },
-  topContainer: {
-    paddingTop: 30,
-    paddingHorizontal: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: COLORS.text,
   },
   balanceContainer: {
     alignItems: 'center',
